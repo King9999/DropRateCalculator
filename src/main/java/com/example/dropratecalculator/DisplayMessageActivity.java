@@ -30,12 +30,13 @@ public class DisplayMessageActivity extends AppCompatActivity
         String message = intent.getStringExtra(MainActivity.DROP_RATE);
         float dropRate = intent.getFloatExtra(MainActivity.DROP_RATE, MainActivity.dropRate);
         int totalRolls = intent.getIntExtra(MainActivity.ROLLS, MainActivity.rollCount);
+        float weight = intent.getFloatExtra(MainActivity.WEIGHT, MainActivity.weightValue);
 
         // Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.textView_dropRate);
         TextView percentView = findViewById(R.id.textView_percent);
         String dropRateText = Float.toString(dropRate);
-        String percentText = String.format("%s%%", "(" + dropRate * 100 + ")");
+        String percentText = String.format("%s%%", "(" + dropRate * 100) + ")";
         textView.setText(dropRateText);
         percentView.setText(percentText);
 
@@ -49,9 +50,14 @@ public class DisplayMessageActivity extends AppCompatActivity
         else
             fractionView.setText("(1/" + fractionText + ")");
 
+
         TextView rollTotalView = findViewById(R.id.textView_rolls);
         String rollTotalText = Integer.toString(totalRolls);
         rollTotalView.setText(rollTotalText);
+
+        TextView weightView = findViewById(R.id.textView_weight);
+        String weightText = Float.toString(weight);
+        weightView.setText(weightText);
 
         //Next we want to show the rolls in increments and show when there's success (a "hit")
 
@@ -60,16 +66,21 @@ public class DisplayMessageActivity extends AppCompatActivity
         randNum = new Random();
         float currentNum;
         char hit;         //either Y or N
+        short hitTotal = 0;     //total number of successes
+
 
         for (int i = 0; i < totalRolls; i++)
         {
             rollCount++;
 
             //get a random number and check if it was a hit
-            currentNum = randNum.nextFloat();
+            currentNum = randNum.nextFloat() * weight;
 
             if (currentNum <= dropRate)
+            {
                 hit = 'Y';
+                hitTotal++;
+            }
             else
                 hit = 'N';
 
