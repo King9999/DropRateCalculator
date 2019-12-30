@@ -2,7 +2,7 @@
     <string name="app_name">Drop Rate Calculator</string>
     <string name="edit_divisor">1</string>
     <string name="button_send">Roll</string>
-    <string name="text_enterValue">Enter a non-negative number between 0 and 1 (e.g. 0.5, 0.224)</string>
+    <string name="text_enterValue">Enter a value between 0 and 1 (e.g. 0.5, 0.224)</string>
     <string name="text_dividend">1</string>
     <string name="text_divisonSign">/</string>
     <string name="text_enterRolls">How many rolls do you want to make? (1 to 1000)</string>
