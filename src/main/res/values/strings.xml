@@ -15,4 +15,7 @@
     <string name="text_percent">%</string>
     <string name="text_weightText">Enter a weight (default is 1). Higher number = harder to reach lower values. Value can\'t be zero or negative. Extreme numbers not recommended!</string>
     <string name="text_weightResult">Weight:</string>
+    <string name="text_hitCount">Hit Count:</string>
+    <string name="text_hitRate">Hit Rate:</string>
+    <string name="text_hitLocations">Hit Locations:</string>
 </resources>
