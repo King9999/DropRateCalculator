@@ -18,4 +18,6 @@
     <string name="text_hitCount">Hit Count:</string>
     <string name="text_hitRate">Hit Rate:</string>
     <string name="text_hitLocations">Hit Locations:</string>
+    <string name="text_enterSeed">Enter a seed value (Optional)</string>
+    <string name="text_seedValue">Seed:</string>
 </resources>

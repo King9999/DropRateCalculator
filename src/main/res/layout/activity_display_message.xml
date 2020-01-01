@@ -12,6 +12,30 @@
 
 
         <TextView
+            android:id="@+id/textView_seed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="12dp"
+            android:text="0"
+            android:textSize="18sp"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/textView_hitRate" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/text_seedValue"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <TextView
             android:id="@+id/textView_hitLocations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,23 +53,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="56dp"
             android:text="@string/text_hitLocations"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         <TextView
             android:id="@+id/textView_hitRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="31dp"
-            android:layout_marginLeft="31dp"
-            android:layout_marginTop="160dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="8dp"
             android:text="0"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/textView8"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_hits" />
 
         <TextView
             android:id="@+id/textView8"
@@ -53,23 +77,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="8dp"
             android:text="@string/text_hitRate"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         <TextView
             android:id="@+id/textView_hits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
             android:text="0"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/textView7"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_weight" />
 
         <TextView
             android:id="@+id/textView7"
@@ -77,23 +101,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="12dp"
             android:text="@string/text_hitCount"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
         <TextView
             android:id="@+id/textView_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="84dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="8dp"
             android:text="0"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_rolls" />
 
         <TextView
             android:id="@+id/textView6"
@@ -101,22 +125,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="8dp"
             android:text="@string/text_weightResult"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         <TextView
             android:id="@+id/textView_percent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
             android:text="@string/text_percent"
             android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/textView_fraction"
+            app:layout_constraintStart_toEndOf="@+id/textView_dropRate"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -131,18 +155,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView_hitLocations" />
 
+
         <TextView
             android:id="@+id/textView_fraction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="56dp"
-            android:layout_marginLeft="56dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
             android:layout_marginTop="16dp"
             android:text="@string/text_Fraction"
             android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView_dropRate"
+            app:layout_constraintStart_toEndOf="@+id/textView_percent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <TextView
             android:id="@+id/textView4"
@@ -150,28 +174,28 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="12dp"
             android:text="@string/text_RollTotalText"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <TextView
             android:id="@+id/textView_rolls"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="12dp"
             android:text="0"
             android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView_dropRate" />
 
         <TextView
             android:id="@+id/textView_dropRate"
-            android:layout_width="75dp"
-            android:layout_height="26dp"
+            android:layout_width="65dp"
+            android:layout_height="24dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="16dp"
