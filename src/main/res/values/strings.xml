@@ -2,10 +2,10 @@
     <string name="app_name">Drop Rate Calculator</string>
     <string name="edit_divisor">1</string>
     <string name="button_send">Roll</string>
-    <string name="text_enterValue">Enter a value between 0 and 1 (e.g. 0.5, 0.224)</string>
+    <string name="text_enterValue">Enter a value between 0 and 1</string>
     <string name="text_dividend">1</string>
     <string name="text_divisonSign">/</string>
-    <string name="text_enterRolls">How many rolls do you want to make? (1 to 10,000)</string>
+    <string name="text_enterRolls">How many rolls do you want to make?</string>
     <string name="text_dropRate">Drop Rate:</string>
     <string name="text_rollCount">Rolls:</string>
     <string name="text_dropRateText">Drop Rate:</string>
@@ -13,11 +13,14 @@
     <string name="text_Fraction">(1/1)</string>
     <string name="text_rollCountText">Roll Table</string>
     <string name="text_percent">%</string>
-    <string name="text_weightText">Enter a weight (default is 1). Higher number = harder to reach lower values. Value can\'t be zero or negative. Extreme numbers not recommended!</string>
+    <string name="text_weightText">Enter a weight (Optional). Weight is a multiplier of the random numbers generated. Higher weight = less chance of successful drop. Weight can\'t be zero.</string>
     <string name="text_weightResult">Weight:</string>
     <string name="text_hitCount">Hit Count:</string>
     <string name="text_hitRate">Hit Rate:</string>
     <string name="text_hitLocations">Hit Locations:</string>
     <string name="text_enterSeed">Enter a seed value (Optional)</string>
-    <string name="text_seedValue">Seed:</string>
+    <string name="text_seedValue">Seed Value:</string>
+    <string name="text_dropRateHint">Ex. 0.5, 0.224</string>
+    <string name="text_rollHint">1 to 10,000</string>
+    <string name="text_weightHint">Ex. 1.2, 4.7</string>
 </resources>

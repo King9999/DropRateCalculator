@@ -124,7 +124,9 @@ public class DisplayMessageActivity extends AppCompatActivity
         String hitCountText = Short.toString(hitTotal);
         hitCountView.setText(hitCountText);
 
-        hitRate = (Math.round(((float)hitTotal / (float)totalRolls) * 100.0f) / 100.0f) * 100.0f;
+        float a = (float)hitTotal;
+        float b = (float)totalRolls;
+        hitRate = 100.0f * ((a / b) * 100.0f) / 100.0f; //for some reason I can't use Math.round as I lose precision. will leave things like this for now.
         TextView hitRateView = findViewById(R.id.textView_hitRate);
         String hitRateText = hitRate + "%";
         hitRateView.setText(hitRateText);
