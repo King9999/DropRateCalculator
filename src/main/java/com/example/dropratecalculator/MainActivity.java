@@ -3,8 +3,13 @@ package com.example.dropratecalculator;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.support.v7.widget.Toolbar;
 
 import java.util.Random;
 
@@ -27,6 +32,44 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //set up toolbar
+        Toolbar mainToolbar = findViewById(R.id.toolbar);
+        //mainToolbar.setTitle("test");
+        setSupportActionBar(mainToolbar);
+    }
+
+    /* This code creates the menu in the top right corner. When the menu button is clicked,
+    the menu options appear.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.mainmenu, menu);
+        return true;
+    }
+
+    /* This code checks what menu item is selected. */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        EditText seedText = findViewById(R.id.seedText);
+        
+        switch(item.getItemId())
+        {
+            case R.id.resetSeed:
+            {
+                //select a random seed from 1 to the current time in milliseconds
+                //long maxSeed = System.currentTimeMillis();
+                seedValue = randNum.nextLong();
+                String seedStr = Long.toString(seedValue);
+                seedText.setText(seedStr);
+                Log.d("RandSeed", "Random Seed selected. Value is " + seedValue);
+                return true;
+            }
+        }
+            return super.onOptionsItemSelected(item);
     }
 
     /** Send button function **/
@@ -81,6 +124,7 @@ public class MainActivity extends AppCompatActivity
         {
             //no value entered, so use System clock time.
             seed = seedValue;
+
         }
         //float dropRate = Float.valueOf(editText.getText().toString());
         //int roll = Integer.valueOf(rollText.getText().toString());
