@@ -6,7 +6,12 @@ import android.icu.text.NumberFormat;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,12 +29,37 @@ public class DisplayMessageActivity extends AppCompatActivity
     //long seedValue = System.currentTimeMillis();
     //static Random randNum = new Random();
 
+
+    /* This code creates the menu in the top right corner. When the menu button is clicked,
+    the menu options appear.
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.dropresultmenu, menu);
+        return true;
+    }
+
+    /* This code checks what menu item is selected. */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         //MainActivity.randNum.setSeed(seedValue);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
+
+        //set up toolbar
+        Toolbar resultToolbar = findViewById(R.id.toolbar);
+        resultToolbar.setTitle("Drop Results");
+        setSupportActionBar(resultToolbar);
 
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
