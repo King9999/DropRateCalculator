@@ -25,4 +25,13 @@
         </activity>
     </application>
 
+    <!--This line is required to be able to write files to external storage-->
+    <uses-permission
+    android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    android:maxSdkVersion="18" />
+
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
 </manifest>

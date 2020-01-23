@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         EditText seedText = findViewById(R.id.seedText);
-        
+
         switch(item.getItemId())
         {
             case R.id.resetSeed:
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity
                 String seedStr = Long.toString(seedValue);
                 seedText.setText(seedStr);
                 Log.d("RandSeed", "Random Seed selected. Value is " + seedValue);
+                Toast.makeText(this, getString(R.string.toast_newSeedMsg), Toast.LENGTH_SHORT).show();
                 return true;
             }
         }

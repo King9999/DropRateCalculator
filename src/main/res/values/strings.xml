@@ -23,4 +23,7 @@
     <string name="text_dropRateHint">Ex. 0.5, 0.224</string>
     <string name="text_rollHint">1 to 10,000</string>
     <string name="text_weightHint">Ex. 1.2, 4.7</string>
+    <string name="menu_resetSeed">Select Random Seed</string>
+    <string name="menu_saveFile">Save results to file</string>
+    <string name="toast_newSeedMsg">New seed generated.</string>
 </resources>

@@ -1,19 +1,33 @@
 package com.example.dropratecalculator;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.icu.text.DecimalFormat;
 import android.icu.text.NumberFormat;
+import android.os.Build;
+import android.os.Environment;
 import android.os.SystemClock;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
@@ -24,6 +38,24 @@ public class DisplayMessageActivity extends AppCompatActivity
 {
     public static final float NUMERATOR = 1;
     int rollCount = 0;
+
+    float dropRate;         //the chance that a roll is successful.
+    int totalRolls;
+    float weight;           //multiplier of the current roll. Makes success harder if weight is higher than 1.
+    long seed;
+    final static float textSize = 18;       //used for displaying table results
+
+    short hitTotal = 0;     //total number of successes
+    float hitRate = 0;      //percentage of successful drops
+
+    float[] rollValues;     //tracks all the rolls made by RNG
+    char[] hitResults;      //tracks all the successful rolls
+    ArrayList hitLocations; //tracks which rolls were successful.
+
+    //Table is used to display drop results
+    TableLayout table;
+    TableRow tableRow;
+
 
     //set up the random number generator. Need to be able to capture the seed in case the user wants to use it again.
     //long seedValue = System.currentTimeMillis();
@@ -42,13 +74,52 @@ public class DisplayMessageActivity extends AppCompatActivity
     }
 
     /* This code checks what menu item is selected. */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+        //Upon clicking the save icon, a text file will be saved to device.
+        FileOutputStream os = null;
+        String fileName = "dropresults.txt";
+        File saveFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName);
+
+        String seedText = Long.toString(seed);
+        try
+        {
+            //TODO: Find a way to make file accessible on device.
+            saveFile.createNewFile();
+            os = new FileOutputStream(saveFile, false);
+            //os = openFileOutput(saveFile, MODE_PRIVATE);
+            os.write(seedText.getBytes());
+            Toast.makeText(this, "Saved to " + getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) + "/" + fileName, Toast.LENGTH_LONG).show();
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+           if (os != null)
+           {
+               try
+               {
+                   os.close();      //close output stream. This always must be done!
+               }
+               catch (IOException e)
+               {
+                   e.printStackTrace();
+               }
+           }
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
+    //@RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -61,13 +132,22 @@ public class DisplayMessageActivity extends AppCompatActivity
         resultToolbar.setTitle("Drop Results");
         setSupportActionBar(resultToolbar);
 
+        //set up table
+        table = findViewById(R.id.rollTable);
+        table.setColumnStretchable(0, true);
+        table.setColumnStretchable(1, true);    //this code determines # of columns
+        table.setColumnStretchable(2, true);
+
+        //tableRow = new TableRow(this);
+
+
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.DROP_RATE);
-        float dropRate = intent.getFloatExtra(MainActivity.DROP_RATE, MainActivity.dropRate);
-        int totalRolls = intent.getIntExtra(MainActivity.ROLLS, MainActivity.rollCount);
-        float weight = intent.getFloatExtra(MainActivity.WEIGHT, MainActivity.weightValue);
-        long seed = intent.getLongExtra(MainActivity.SEED, MainActivity.seedValue);
+         dropRate = intent.getFloatExtra(MainActivity.DROP_RATE, MainActivity.dropRate);
+         totalRolls = intent.getIntExtra(MainActivity.ROLLS, MainActivity.rollCount);
+         weight = intent.getFloatExtra(MainActivity.WEIGHT, MainActivity.weightValue);
+         seed = intent.getLongExtra(MainActivity.SEED, MainActivity.seedValue);
 
         MainActivity.randNum.setSeed(seed);
 
@@ -107,21 +187,51 @@ public class DisplayMessageActivity extends AppCompatActivity
 
         //Next we want to show the rolls in increments and show when there's success (a "hit")
 
-        TextView rollCountView = findViewById(R.id.textView_currentRoll);
+        //TextView rollCountView = findViewById(R.id.textView_currentRoll);
         String currentRollText;
         //randNum = new Random();
         float currentNum;
         char hit;               //either Y or N
-        short hitTotal = 0;     //total number of successes
-        float hitRate = 0;      //percentage of successful drops
+        hitTotal = 0;     //total number of successes
+        hitRate = 0;      //percentage of successful drops
 
-        float[] rollValues = new float[totalRolls];
-        char[] hitResults = new char[totalRolls];
-        ArrayList hitLocations = new ArrayList();       //records which rolls a hit occurred
+        rollValues = new float[totalRolls];
+        hitResults = new char[totalRolls];
+        hitLocations = new ArrayList();       //records which rolls a hit occurred
 
 
         //display the seed value
         Log.d("Seed", "Seed value is " + seed);
+
+
+        //set up the table headers
+        tableRow = new TableRow(this);
+        tableRow.setGravity(Gravity.CENTER);
+
+        TextView rollNumCol = new TextView(this);
+        TextView rollValCol = new TextView(this);
+        TextView rollHitCol = new TextView(this);
+
+        rollNumCol.setText("Roll#");
+        rollNumCol.setGravity(Gravity.CENTER);
+        rollNumCol.setTextSize(textSize);
+        rollNumCol.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        //rollNumCol.setTextAppearance(0x00000002);
+
+        rollValCol.setText("Value");
+        rollValCol.setGravity(Gravity.CENTER);
+        rollValCol.setTextSize(textSize);
+        rollValCol.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+
+        rollHitCol.setText("Success?");
+        rollHitCol.setGravity(Gravity.CENTER);
+        rollHitCol.setTextSize(textSize);
+        rollHitCol.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+
+        tableRow.addView(rollNumCol);
+        tableRow.addView(rollValCol);
+        tableRow.addView(rollHitCol);
+        table.addView(tableRow);
 
 
         for (int i = 0; i < totalRolls; i++)
@@ -143,9 +253,34 @@ public class DisplayMessageActivity extends AppCompatActivity
 
             hitResults[i] = hit;
 
-            currentRollText = "Roll " + rollCount + "   Value: " + currentNum + "   Hit? " + hit + "\n";
+            //currentRollText = "Roll " + rollCount + "   Value: " + currentNum + "   Hit? " + hit + "\n";
             //rollCountView.setText(currentRollText);
-            rollCountView.append(currentRollText);
+            //rollCountView.append(currentRollText);
+
+            //display current result in the table
+            tableRow = new TableRow(this);
+            tableRow.setGravity(Gravity.CENTER);
+
+            TextView rollCountView = new TextView(this);
+            TextView rollValView = new TextView(this);
+            TextView rollHitView = new TextView(this);
+
+            rollCountView.setText(Integer.toString(rollCount));
+            rollCountView.setGravity(Gravity.CENTER);
+            rollCountView.setTextSize(textSize);
+
+            rollValView.setText(Float.toString(currentNum));
+            rollValView.setGravity(Gravity.CENTER);
+            rollValView.setTextSize(textSize);
+
+            rollHitView.setText(Character.toString(hit));
+            rollHitView.setGravity(Gravity.CENTER);
+            rollHitView.setTextSize(textSize);
+
+            tableRow.addView(rollCountView);
+            tableRow.addView(rollValView);
+            tableRow.addView(rollHitView);
+            table.addView(tableRow);
 
         }
 

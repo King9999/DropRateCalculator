@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DisplayMessageActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-        <TextView
+            <TableLayout
+                android:id="@+id/rollTable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_currentRoll">
+
+            </TableLayout>
+
+            <TextView
             android:id="@+id/textView_seed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,19 +131,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
-        <TextView
-            android:id="@+id/textView_weight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="20dp"
-            android:text="0"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toBottomOf="@+id/textView_rolls" />
+            <TextView
+                android:id="@+id/textView_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="20dp"
+                android:text="0"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/textView_rolls" />
 
-        <TextView
+            <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,19 +155,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-        <TextView
-            android:id="@+id/textView_percent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="108dp"
-            android:layout_marginLeft="108dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/text_percent"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_dropRate" />
+            <TextView
+                android:id="@+id/textView_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:layout_marginLeft="120dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/text_percent"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_dropRate" />
 
-        <TextView
+            <TextView
             android:id="@+id/text_currentRoll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -192,30 +216,30 @@
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/textView_dropRate" />
 
-        <TextView
-            android:id="@+id/textView_dropRate"
-            android:layout_width="65dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="16dp"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView_dropRate"
+                android:layout_width="65dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="76dp"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/text_dropRate"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="76dp"
+                android:text="@string/text_dropRate"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+            <TextView
             android:id="@+id/textView_currentRoll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -229,5 +253,6 @@
             tools:text="text" />
 
 
-    </android.support.constraint.ConstraintLayout>
-</ScrollView>
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>
