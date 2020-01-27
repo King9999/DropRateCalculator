@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -56,7 +57,9 @@ public class DisplayMessageActivity extends AppCompatActivity
     TableLayout table;
     TableRow tableRow;
 
-
+    TextView hitLocationView;
+    boolean hitLocationsDisplayed = true;   //toggle for the above view
+    
     //set up the random number generator. Need to be able to capture the seed in case the user wants to use it again.
     //long seedValue = System.currentTimeMillis();
     //static Random randNum = new Random();
@@ -71,6 +74,22 @@ public class DisplayMessageActivity extends AppCompatActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.dropresultmenu, menu);
         return true;
+    }
+
+    /*Button functionality to show/hide hit locations. */
+    public void sendMessage(View view)
+    {
+        if (hitLocationsDisplayed)
+        {
+            //button was pressed, so hide the locations
+            hitLocationView.setVisibility(View.GONE);
+            hitLocationsDisplayed = false;
+        }
+        else
+        {
+            hitLocationView.setVisibility(View.VISIBLE);
+            hitLocationsDisplayed = true;
+        }
     }
 
     /* This code checks what menu item is selected. */
@@ -136,7 +155,7 @@ public class DisplayMessageActivity extends AppCompatActivity
         table = findViewById(R.id.rollTable);
         table.setColumnStretchable(0, true);
         table.setColumnStretchable(1, true);    //this code determines # of columns
-        table.setColumnStretchable(2, true);
+        //table.setColumnStretchable(2, true);
 
         //tableRow = new TableRow(this);
 
@@ -184,6 +203,8 @@ public class DisplayMessageActivity extends AppCompatActivity
         TextView seedView = findViewById(R.id.textView_seed);
         String seedText = Long.toString(seed);
         seedView.setText(seedText);
+
+        hitLocationView = findViewById(R.id.textView_hitLocations);
 
         //Next we want to show the rolls in increments and show when there's success (a "hit")
 
@@ -337,7 +358,8 @@ public class DisplayMessageActivity extends AppCompatActivity
         String hitRateText = hitRate + "%";
         hitRateView.setText(hitRateText);
 
-        TextView hitLocationView = findViewById(R.id.textView_hitLocations);
+        //TextView hitLocationView = findViewById(R.id.textView_hitLocations);
+        //hitLocationView.setVisibility(View.GONE);
         //String hitLocationText;
 
         hitLocationView.setText(hitLocations.toString() + "\n");

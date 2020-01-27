@@ -11,7 +11,6 @@
     <string name="text_dropRateText">Drop Rate:</string>
     <string name="text_RollTotalText">Total Rolls:</string>
     <string name="text_Fraction">(1/1)</string>
-    <string name="text_rollCountText">Roll Table</string>
     <string name="text_percent">%</string>
     <string name="text_weightText">Enter a weight (Optional). Weight is a multiplier of the random numbers generated. Higher weight = less chance of successful drop. Weight can\'t be zero.</string>
     <string name="text_weightResult">Weight:</string>
@@ -26,4 +25,7 @@
     <string name="menu_resetSeed">Select Random Seed</string>
     <string name="menu_saveFile">Save results to file</string>
     <string name="toast_newSeedMsg">New seed generated.</string>
+    <string name="text_buttonHide">HIDE</string>
+    <string name="text_buttonShow">SHOW</string>
+    <string name="text_rollCountText">TABLE OF SUCCESSFUL ROLLS</string>
 </resources>

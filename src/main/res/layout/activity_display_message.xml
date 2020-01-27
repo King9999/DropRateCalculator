@@ -167,20 +167,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView_dropRate" />
 
+
             <TextView
-            android:id="@+id/text_currentRoll"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="164dp"
-            android:layout_marginLeft="164dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/text_rollCountText"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView_hitLocations" />
+                android:id="@+id/text_currentRoll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="72dp"
+                android:layout_marginLeft="72dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="86dp"
+                android:layout_marginRight="86dp"
+                android:text="@string/text_rollCountText"
+                android:textSize="18sp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView_hitLocations" />
 
-
-        <TextView
+            <TextView
             android:id="@+id/textView_fraction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -251,6 +255,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_currentRoll"
             tools:text="text" />
+
+            <ToggleButton
+                android:id="@+id/button_HitLocToggle"
+                android:layout_width="49dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:text="ToggleButton"
+                android:textOff="@string/text_buttonHide"
+                android:textOn="@string/text_buttonShow"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:onClick="sendMessage"
+                app:layout_constraintStart_toEndOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/textView_seed" />
 
 
         </android.support.constraint.ConstraintLayout>
