@@ -196,7 +196,7 @@ public class DisplayMessageActivity extends AppCompatActivity
         hitRate = 0;      //percentage of successful drops
 
         rollValues = new float[totalRolls];
-        hitResults = new char[totalRolls];
+        //hitResults = new char[totalRolls];
         hitLocations = new ArrayList();       //records which rolls a hit occurred
 
 
@@ -210,7 +210,7 @@ public class DisplayMessageActivity extends AppCompatActivity
 
         TextView rollNumCol = new TextView(this);
         TextView rollValCol = new TextView(this);
-        TextView rollHitCol = new TextView(this);
+        //TextView rollHitCol = new TextView(this);
 
         rollNumCol.setText("Roll#");
         rollNumCol.setGravity(Gravity.CENTER);
@@ -223,19 +223,40 @@ public class DisplayMessageActivity extends AppCompatActivity
         rollValCol.setTextSize(textSize);
         rollValCol.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
 
-        rollHitCol.setText("Success?");
+        /*rollHitCol.setText("Success?");
         rollHitCol.setGravity(Gravity.CENTER);
         rollHitCol.setTextSize(textSize);
-        rollHitCol.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
+        rollHitCol.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));*/
 
         tableRow.addView(rollNumCol);
         tableRow.addView(rollValCol);
-        tableRow.addView(rollHitCol);
+        //tableRow.addView(rollHitCol);
         table.addView(tableRow);
 
+        //set up other table contents. This should help speed things up in case the roll is large.
+       /* TextView[] rollCountView = new TextView[totalRolls];
+        TextView[] rollValView = new TextView[totalRolls];
+        TextView[] rollHitView = new TextView[totalRolls];
 
+
+
+        for (int j = 0; j < totalRolls; j++)
+        {
+            tableRow = new TableRow(this);
+            tableRow.setGravity(Gravity.CENTER);
+
+            rollCountView[j].setText(Integer.toString(rollCount));
+            rollCountView[j].setGravity(Gravity.CENTER);
+            rollCountView[j].setTextSize(textSize);
+
+
+        }*/
+
+        /* For performance reasons, the table will only collect and display the successful rolls. All other information is still presented. */
         for (int i = 0; i < totalRolls; i++)
         {
+
+
             rollCount++;
 
             //get a random number and check if it was a hit
@@ -244,21 +265,41 @@ public class DisplayMessageActivity extends AppCompatActivity
 
             if (currentNum <= dropRate)
             {
-                hit = 'Y';
+                //hit = 'Y';
                 hitTotal++;
                 hitLocations.add(rollCount);
-            }
-            else
-                hit = 'N';
 
-            hitResults[i] = hit;
+                //add new entry to the table
+                tableRow = new TableRow(this);
+                tableRow.setGravity(Gravity.CENTER);
+
+                TextView rollCountView = new TextView(this);
+                TextView rollValView = new TextView(this);
+
+                rollCountView.setText(Integer.toString(rollCount));
+                rollCountView.setGravity(Gravity.CENTER);
+                rollCountView.setTextSize(textSize);
+
+                rollValView.setText(Float.toString(currentNum));
+                rollValView.setGravity(Gravity.CENTER);
+                rollValView.setTextSize(textSize);
+
+                tableRow.addView(rollCountView);
+                tableRow.addView(rollValView);
+                table.addView(tableRow);
+            }
+            //else
+               // hit = 'N';
+
+           // hitResults[i] = hit;
+
 
             //currentRollText = "Roll " + rollCount + "   Value: " + currentNum + "   Hit? " + hit + "\n";
             //rollCountView.setText(currentRollText);
             //rollCountView.append(currentRollText);
 
             //display current result in the table
-            tableRow = new TableRow(this);
+            /*tableRow = new TableRow(this);
             tableRow.setGravity(Gravity.CENTER);
 
             TextView rollCountView = new TextView(this);
@@ -280,9 +321,9 @@ public class DisplayMessageActivity extends AppCompatActivity
             tableRow.addView(rollCountView);
             tableRow.addView(rollValView);
             tableRow.addView(rollHitView);
-            table.addView(tableRow);
+            table.addView(tableRow);*/
 
-        }
+        }  //end for
 
         //Display hit total, hit rate, and hit locations
         TextView hitCountView = findViewById(R.id.textView_hits);
@@ -297,7 +338,7 @@ public class DisplayMessageActivity extends AppCompatActivity
         hitRateView.setText(hitRateText);
 
         TextView hitLocationView = findViewById(R.id.textView_hitLocations);
-        String hitLocationText;
+        //String hitLocationText;
 
         hitLocationView.setText(hitLocations.toString() + "\n");
 
