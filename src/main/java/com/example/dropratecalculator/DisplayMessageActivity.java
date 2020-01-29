@@ -1,5 +1,7 @@
 package com.example.dropratecalculator;
 
+import android.content.ClipData;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.icu.text.DecimalFormat;
@@ -22,6 +24,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.ClipboardManager;
 
 import org.w3c.dom.Text;
 
@@ -59,14 +62,14 @@ public class DisplayMessageActivity extends AppCompatActivity
 
     TextView hitLocationView;
     boolean hitLocationsDisplayed = true;   //toggle for the above view
-    
+
     //set up the random number generator. Need to be able to capture the seed in case the user wants to use it again.
     //long seedValue = System.currentTimeMillis();
     //static Random randNum = new Random();
 
 
     /* This code creates the menu in the top right corner. When the menu button is clicked,
-    the menu options appear.
+    the menu options appear. NOTE: DIASABLED THIS BUTTON SINCE THE SAVED FILE CAN'T BE LOCATED ON DEVICE
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
@@ -92,13 +95,66 @@ public class DisplayMessageActivity extends AppCompatActivity
         }
     }
 
-    /* This code checks what menu item is selected. */
+    /* This code checks what menu item is selected. NOTE: DISABLED SAVE FEATURE FOR NOW SINCE I'M UNABLE TO LOCATE THE
+    * SAVED FILE ON THE DEVICE. */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+
+        //Copy results to clipboard
+        String data;        //all the info to be copied
+        float denominator = (dropRate <= 0) ? 0 : Math.round((NUMERATOR  / dropRate) * 100.0f) / 100.0f;
+        String denominatorStr;
+
+        if (denominator <= 0)
+            denominatorStr = "0";
+        else
+            denominatorStr = "1/" + denominator;
+
+        data = "DROP RATE CALCULATOR RESULTS\n"
+        + "-------------------------\n"
+        + "Drop Rate: " + dropRate + "\n"
+        + "Drop Rate(%): " + dropRate * 100.0f + "%\n"
+        + "Drop Rate(odds): " + denominatorStr + "\n"
+        + "Total Rolls: " + totalRolls + "\n"
+        + "Weight: " + weight + "\n"
+        + "Hit Count: " + hitTotal + "\n"
+        + "Hit Rate: " + hitRate + "%\n"
+        + "Seed Value: " + seed + "\n"
+        + "-------------------------\n"
+        + "Hit Locations:\n"
+        + hitLocations.toString() + "\n\n"
+        + "=======RESULTS TABLE=======\n"
+        + "ROLL#\t\tVALUE\n"
+        + "-------------------------\n";
+
+        for (int i = 0; i < hitLocations.size(); i++)
+        {
+            int rollNumber = (int)hitLocations.get(i);
+            //String rollStr = hitLocations.get(i).toString();    //I use this to space the values properly. The larger the roll count, the more spaces added.
+
+            //if (rollStr.length() == 1)
+                data += rollNumber + "\t\t\t\t\t" + rollValues[rollNumber - 1] + "\n";
+            /*else if (rollStr.length() == 2)
+                data += rollNumber + "\t\t\t\t\t" + rollValues[rollNumber - 1] + "\n";
+            else if (rollStr.length() == 3)
+                data += rollNumber + "\t\t\t\t\t" + rollValues[rollNumber - 1] + "\n";
+            else if (rollStr.length() == 4)
+                data += rollNumber + " \t\t\t\t\t" + rollValues[rollNumber - 1] + "\n";
+            else
+                data += rollNumber + "  \t\t\t\t\t" + rollValues[rollNumber - 1] + "\n";*/
+        }
+
+        //copy the above to clipboard.
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipData copiedData = ClipData.newPlainText("Drop Rate Calculator Results", data);
+        clipboard.setPrimaryClip(copiedData);
+
+        Toast.makeText(this, "Copied to clipboard.",Toast.LENGTH_SHORT).show();
+
         //Upon clicking the save icon, a text file will be saved to device.
-        FileOutputStream os = null;
+        /*FileOutputStream os = null;
         String fileName = "dropresults.txt";
         File saveFile = new File(getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS), fileName);
 
@@ -133,7 +189,7 @@ public class DisplayMessageActivity extends AppCompatActivity
                    e.printStackTrace();
                }
            }
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/saveFile"
-        android:icon="@drawable/ic_saveicon"
-        android:title="@string/menu_saveFile"
+        android:icon="@drawable/ic_copybutton"
+        android:title="@string/menu_copy"
         app:showAsAction="always" />
 </menu>
