@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity
     public static final String SEED = "com.example.dropratecalculator.SEED";
     public static float dropRate = 0;
     public static int rollCount = 1;
-    public static final int MAX_ROLLS = 10000;
+    public static final int MAX_ROLLS = 1000;
     public static float weightValue = 1;
 
     //set up the random number generator. Need to be able to capture the seed in case the user wants to use it again.
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity
         EditText weightText = findViewById(R.id.weightText);
         EditText seedText = findViewById(R.id.seedText);
 
-        float dropRate;
+        //float dropRate;
         int roll;
         float weight;
         long seed;

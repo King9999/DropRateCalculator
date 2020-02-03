@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/saveFile"
+        android:id="@+id/copyResults"
         android:icon="@drawable/ic_copybutton"
         android:title="@string/menu_copy"
         app:showAsAction="always" />

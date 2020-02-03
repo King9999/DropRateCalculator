@@ -34,6 +34,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Random;
 
 import static android.os.SystemClock.sleep;
@@ -95,47 +96,60 @@ public class DisplayMessageActivity extends AppCompatActivity
         }
     }
 
+    /* This code lets me change what the back button on the device does. Not doing anything with it, but
+    just in case. */
+    @Override
+    public void onBackPressed()
+    {
+        Log.d("Back button", "Back button on device pressed");
+        super.onBackPressed();
+    }
+
+
     /* This code checks what menu item is selected. NOTE: DISABLED SAVE FEATURE FOR NOW SINCE I'M UNABLE TO LOCATE THE
     * SAVED FILE ON THE DEVICE. */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-
-        //Copy results to clipboard
-        String data;        //all the info to be copied
-        float denominator = (dropRate <= 0) ? 0 : Math.round((NUMERATOR  / dropRate) * 100.0f) / 100.0f;
-        String denominatorStr;
-
-        if (denominator <= 0)
-            denominatorStr = "0";
-        else
-            denominatorStr = "1/" + denominator;
-
-        data = "DROP RATE CALCULATOR RESULTS\n"
-        + "-------------------------\n"
-        + "Drop Rate: " + dropRate + "\n"
-        + "Drop Rate(%): " + dropRate * 100.0f + "%\n"
-        + "Drop Rate(odds): " + denominatorStr + "\n"
-        + "Total Rolls: " + totalRolls + "\n"
-        + "Weight: " + weight + "\n"
-        + "Hit Count: " + hitTotal + "\n"
-        + "Hit Rate: " + hitRate + "%\n"
-        + "Seed Value: " + seed + "\n"
-        + "-------------------------\n"
-        + "Hit Locations:\n"
-        + hitLocations.toString() + "\n\n"
-        + "=======RESULTS TABLE=======\n"
-        + "ROLL#\t\tVALUE\n"
-        + "-------------------------\n";
-
-        for (int i = 0; i < hitLocations.size(); i++)
+        switch (item.getItemId())
         {
-            int rollNumber = (int)hitLocations.get(i);
-            //String rollStr = hitLocations.get(i).toString();    //I use this to space the values properly. The larger the roll count, the more spaces added.
+            case R.id.copyResults:
+            {
+                //Copy results to clipboard
+                String data;        //all the info to be copied
+                float denominator = (dropRate <= 0) ? 0 : Math.round((NUMERATOR / dropRate) * 100.0f) / 100.0f;
+                String denominatorStr;
 
-            //if (rollStr.length() == 1)
-                data += rollNumber + "\t\t\t\t\t" + rollValues[rollNumber - 1] + "\n";
+                if (denominator <= 0)
+                    denominatorStr = "0";
+                else
+                    denominatorStr = "1/" + denominator;
+
+                data = "DROP RATE CALCULATOR RESULTS\n"
+                        + "-------------------------\n"
+                        + "Drop Rate: " + dropRate + "\n"
+                        + "Drop Rate(%): " + dropRate * 100.0f + "%\n"
+                        + "Drop Rate(odds): " + denominatorStr + "\n"
+                        + "Total Rolls: " + totalRolls + "\n"
+                        + "Weight: " + weight + "\n"
+                        + "Hit Count: " + hitTotal + "\n"
+                        + "Hit Rate: " + hitRate + "%\n"
+                        + "Seed Value: " + seed + "\n"
+                        + "-------------------------\n"
+                        + "Hit Locations:\n"
+                        + hitLocations.toString() + "\n\n"
+                        + "=======RESULTS TABLE=======\n"
+                        + "ROLL#\t\tVALUE\n"
+                        + "-------------------------\n";
+
+                for (int i = 0; i < hitLocations.size(); i++)
+                {
+                    int rollNumber = (int) hitLocations.get(i);
+                    //String rollStr = hitLocations.get(i).toString();    //I use this to space the values properly. The larger the roll count, the more spaces added.
+
+                    //if (rollStr.length() == 1)
+                    data += rollNumber + "\t\t\t\t\t" + rollValues[rollNumber - 1] + "\n";
             /*else if (rollStr.length() == 2)
                 data += rollNumber + "\t\t\t\t\t" + rollValues[rollNumber - 1] + "\n";
             else if (rollStr.length() == 3)
@@ -144,14 +158,27 @@ public class DisplayMessageActivity extends AppCompatActivity
                 data += rollNumber + " \t\t\t\t\t" + rollValues[rollNumber - 1] + "\n";
             else
                 data += rollNumber + "  \t\t\t\t\t" + rollValues[rollNumber - 1] + "\n";*/
+                }
+
+                //copy the above to clipboard.
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData copiedData = ClipData.newPlainText("Drop Rate Calculator Results", data);
+                clipboard.setPrimaryClip(copiedData);
+
+                Toast.makeText(this, "Copied to clipboard.", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            case android.R.id.home: //back button on toolbar is pressed, as opposed to the device button
+            {
+                //Log.d("Back button", "Button on toolbar pressed");
+                onBackPressed();
+                return true;
+            }
+
+            default:
+                break;
         }
-
-        //copy the above to clipboard.
-        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-        ClipData copiedData = ClipData.newPlainText("Drop Rate Calculator Results", data);
-        clipboard.setPrimaryClip(copiedData);
-
-        Toast.makeText(this, "Copied to clipboard.",Toast.LENGTH_SHORT).show();
 
         //Upon clicking the save icon, a text file will be saved to device.
         /*FileOutputStream os = null;
@@ -195,6 +222,7 @@ public class DisplayMessageActivity extends AppCompatActivity
     }
 
     //@RequiresApi(api = Build.VERSION_CODES.M)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -206,6 +234,7 @@ public class DisplayMessageActivity extends AppCompatActivity
         Toolbar resultToolbar = findViewById(R.id.toolbar);
         resultToolbar.setTitle("Drop Results");
         setSupportActionBar(resultToolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);  //sets up a back button in toolbar
 
         //set up table
         table = findViewById(R.id.rollTable);
@@ -339,6 +368,9 @@ public class DisplayMessageActivity extends AppCompatActivity
             //get a random number and check if it was a hit
             currentNum = MainActivity.randNum.nextFloat() * weight;
             rollValues[i] = currentNum;
+
+            if (currentNum > 1)
+                currentNum = 1; //need to do this step in case the drop rate is 100% but the weight puts the current value over 1 and counts as a failed roll.
 
             if (currentNum <= dropRate)
             {
