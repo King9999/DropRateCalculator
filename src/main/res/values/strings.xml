@@ -30,4 +30,9 @@
     <string name="text_rollCountText">TABLE OF SUCCESSFUL ROLLS</string>
     <string name="menu_copy">Copy results to clipboard</string>
     <string name="menu_about">About This App</string>
+    <string name="text_appName">Drop Rate Calculator</string>
+    <string name="text_version">Version 1.0.0</string>
+    <string name="text_creator" >Created by Mike Murray</string>
+    <string name="text_twitter">Twitter: @MikeADMurray</string>
+    <string name="text_email">Email: mikemurray056@gmail.com</string>
 </resources>
