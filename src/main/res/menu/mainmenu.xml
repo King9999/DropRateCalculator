@@ -6,4 +6,7 @@
         android:id="@+id/resetSeed"
         android:title="@string/menu_resetSeed"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/about"
+        android:title="@string/menu_about" />
 </menu>

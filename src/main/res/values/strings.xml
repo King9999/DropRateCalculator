@@ -29,4 +29,5 @@
     <string name="text_buttonShow">SHOW</string>
     <string name="text_rollCountText">TABLE OF SUCCESSFUL ROLLS</string>
     <string name="menu_copy">Copy results to clipboard</string>
+    <string name="menu_about">About This App</string>
 </resources>

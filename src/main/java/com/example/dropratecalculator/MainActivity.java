@@ -70,6 +70,16 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, getString(R.string.toast_newSeedMsg), Toast.LENGTH_SHORT).show();
                 return true;
             }
+
+            case R.id.about:    //go to about screen
+            {
+                Intent intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
+                return true;
+            }
+
+            default:
+                break;
         }
             return super.onOptionsItemSelected(item);
     }
