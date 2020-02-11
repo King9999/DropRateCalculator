@@ -2,13 +2,17 @@ package com.example.dropratecalculator;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.util.Objects;
 
@@ -17,9 +21,7 @@ import java.util.Objects;
 
 public class AboutActivity extends AppCompatActivity
 {
-    static final String VERSION = "1.0";
-    static final String CREATOR = "Mike Murray";
-    static final String EMAIL = "mikemurray056@gmail.com";
+    private AdView mAdView;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -35,6 +37,16 @@ public class AboutActivity extends AppCompatActivity
         setSupportActionBar(aboutToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);  //sets up a back button in toolbar
         setSupportActionBar(aboutToolbar);
+
+        //set up ads
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     /* This code checks what menu item is selected. */

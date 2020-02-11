@@ -1,7 +1,7 @@
 package com.example.dropratecalculator;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,8 +9,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
 import java.util.Random;
 
@@ -28,16 +34,28 @@ public class MainActivity extends AppCompatActivity
     //set up the random number generator. Need to be able to capture the seed in case the user wants to use it again.
     public static long seedValue = System.currentTimeMillis();
     public static Random randNum = new Random();
+    private AdView mAdView;       //used to display ad banner
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         //set up toolbar
         Toolbar mainToolbar = findViewById(R.id.toolbar);
         //mainToolbar.setTitle("test");
         setSupportActionBar(mainToolbar);
+
+        //set up ads
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     /* This code creates the menu in the top right corner. When the menu button is clicked,

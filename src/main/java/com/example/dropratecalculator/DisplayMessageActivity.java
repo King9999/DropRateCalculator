@@ -4,40 +4,32 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.icu.text.DecimalFormat;
-import android.icu.text.NumberFormat;
 import android.os.Build;
-import android.os.Environment;
-import android.os.SystemClock;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.content.ClipboardManager;
 
-import org.w3c.dom.Text;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Objects;
-import java.util.Random;
-
-import static android.os.SystemClock.sleep;
 
 public class DisplayMessageActivity extends AppCompatActivity
 {
@@ -56,6 +48,8 @@ public class DisplayMessageActivity extends AppCompatActivity
     float[] rollValues;     //tracks all the rolls made by RNG
     char[] hitResults;      //tracks all the successful rolls
     ArrayList hitLocations; //tracks which rolls were successful.
+
+    private AdView mAdView;
 
     //Table is used to display drop results
     TableLayout table;
@@ -235,6 +229,16 @@ public class DisplayMessageActivity extends AppCompatActivity
         resultToolbar.setTitle("Drop Results");
         setSupportActionBar(resultToolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);  //sets up a back button in toolbar
+
+        //set up ads
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         //set up table
         table = findViewById(R.id.rollTable);
@@ -444,6 +448,14 @@ public class DisplayMessageActivity extends AppCompatActivity
         hitRate = 100.0f * ((a / b) * 100.0f) / 100.0f; //for some reason I can't use Math.round as I lose precision. will leave things like this for now.
         TextView hitRateView = findViewById(R.id.textView_hitRate);
         String hitRateText = hitRate + "%";
+
+        //change colour of hit rate text depending on results
+        if (hitRate <= 0)
+            hitRateView.setTextColor(0xFFAA0000);   //red
+
+        if (hitRate >= dropRate)
+            hitRateView.setTextColor(0xFF00AA00);   //green
+
         hitRateView.setText(hitRateText);
 
         //TextView hitLocationView = findViewById(R.id.textView_hitLocations);
