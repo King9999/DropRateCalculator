@@ -1,4 +1,4 @@
-package com.example.dropratecalculator;
+package com.mikemurray.dropratecalculator;
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,4 +1,4 @@
-package com.example.dropratecalculator;
+package com.mikemurray.dropratecalculator;
 
 import android.content.ClipData;
 import android.content.Context;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.dropratecalculator">
+    package="com.mikemurray.dropratecalculator">
 
     <application
         android:allowBackup="true"
@@ -10,21 +10,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DisplayMessageActivity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name="com.mikemurray.dropratecalculator.DisplayMessageActivity"
+            android:parentActivityName="com.mikemurray.dropratecalculator.MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.mikemurray.dropratecalculator.MainActivity" />
         </activity>
-        <activity android:name=".AboutActivity"
-            android:parentActivityName=".MainActivity">
+        <activity android:name="com.mikemurray.dropratecalculator.AboutActivity"
+            android:parentActivityName="com.mikemurray.dropratecalculator.MainActivity">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value="com.mikemurray.dropratecalculator.MainActivity" />
         </activity>
-        <activity android:name=".MainActivity">
+        <activity android:name="com.mikemurray.dropratecalculator.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
