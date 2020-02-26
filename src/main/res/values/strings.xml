@@ -31,8 +31,13 @@
     <string name="menu_copy">Copy results to clipboard</string>
     <string name="menu_about">About This App</string>
     <string name="text_appName">Drop Rate Calculator</string>
-    <string name="text_version">Version 1.0.0</string>
+    <string name="text_version">Version 2.0.0</string>
     <string name="text_creator" >Created by Mike Murray</string>
     <string name="text_twitter">Twitter: @MikeADMurray</string>
     <string name="text_email">Email: mikemurray056@gmail.com</string>
+    <string name="text_enterPercent">Enter a percentage (1 to 100)</string>
+    <string name="text_or" >Or</string>
+    <string name="text_enterFraction">Enter fractional value</string>
+    <string name="text_percentHint">Ex. 2, 12.5</string>
+    <string name="text_fractionHint">Cannot be 0</string>
 </resources>

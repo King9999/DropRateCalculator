@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity
     {
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         //Intent rollIntent =  new Intent(this, DisplayMessageActivity.class);
-        EditText editText = findViewById(R.id.dropRateText);
+        EditText editText = findViewById(R.id.decimalText);
         EditText rollText = findViewById(R.id.rollText);
         EditText weightText = findViewById(R.id.weightText);
         EditText seedText = findViewById(R.id.seedText);
