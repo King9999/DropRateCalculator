@@ -2,7 +2,7 @@
     <string name="app_name">Drop Rate Calculator</string>
     <string name="edit_divisor">1</string>
     <string name="button_send">Roll</string>
-    <string name="text_enterValue">Enter a value between 0 and 1</string>
+    <string name="text_enterDecimal">Enter a value between 0 and 1</string>
     <string name="text_dividend">1</string>
     <string name="text_divisonSign">/</string>
     <string name="text_enterRolls">How many rolls do you want to make?</string>
@@ -19,7 +19,7 @@
     <string name="text_hitLocations">Hit Locations:</string>
     <string name="text_enterSeed">Enter a seed value (Optional)</string>
     <string name="text_seedValue">Seed Value:</string>
-    <string name="text_dropRateHint">Ex. 0.5, 0.224</string>
+    <string name="text_decimalHint">Ex. 0.5, 0.224</string>
     <string name="text_rollHint">1 to 1,000</string>
     <string name="text_weightHint">Ex. 1.2, 4.7</string>
     <string name="menu_resetSeed">Select Random Seed</string>
@@ -31,13 +31,20 @@
     <string name="menu_copy">Copy results to clipboard</string>
     <string name="menu_about">About This App</string>
     <string name="text_appName">Drop Rate Calculator</string>
-    <string name="text_version">Version 2.0.0</string>
+    <string name="text_version">Version 1.1.0</string>
     <string name="text_creator" >Created by Mike Murray</string>
     <string name="text_twitter">Twitter: @MikeADMurray</string>
     <string name="text_email">Email: mikemurray056@gmail.com</string>
     <string name="text_enterPercent">Enter a percentage (1 to 100)</string>
     <string name="text_or" >Or</string>
-    <string name="text_enterFraction">Enter fractional value</string>
+    <string name="text_enterFraction">Enter odds (1 in ?)</string>
     <string name="text_percentHint">Ex. 2, 12.5</string>
-    <string name="text_fractionHint">Cannot be 0</string>
+
+    <!--string array for selecting formats-->
+    <string-array name="array_format">
+        <item>[%] Percent</item>
+        <item>[/] Odds</item>
+        <item>[.] Decimal</item>
+    </string-array>
+    <string name="text_fractionHint">Not less than 1</string>
 </resources>

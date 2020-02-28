@@ -47,9 +47,7 @@ public class DisplayMessageActivity extends AppCompatActivity
 
     float[] rollValues;     //tracks all the rolls made by RNG
     char[] hitResults;      //tracks all the successful rolls
-    ArrayList hitLocations; //tracks which rolls were successful.
-
-    private AdView mAdView;
+    ArrayList<Integer> hitLocations; //tracks which rolls were successful.
 
     //Table is used to display drop results
     TableLayout table;
@@ -139,7 +137,7 @@ public class DisplayMessageActivity extends AppCompatActivity
 
                 for (int i = 0; i < hitLocations.size(); i++)
                 {
-                    int rollNumber = (int) hitLocations.get(i);
+                    int rollNumber = hitLocations.get(i);
                     //String rollStr = hitLocations.get(i).toString();    //I use this to space the values properly. The larger the roll count, the more spaces added.
 
                     //if (rollStr.length() == 1)
@@ -236,7 +234,7 @@ public class DisplayMessageActivity extends AppCompatActivity
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        mAdView = findViewById(R.id.adView);
+        AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -307,7 +305,7 @@ public class DisplayMessageActivity extends AppCompatActivity
 
         rollValues = new float[totalRolls];
         //hitResults = new char[totalRolls];
-        hitLocations = new ArrayList();       //records which rolls a hit occurred
+        hitLocations = new ArrayList<Integer>();       //records which rolls a hit occurred
 
 
         //display the seed value
@@ -443,7 +441,7 @@ public class DisplayMessageActivity extends AppCompatActivity
         String hitCountText = Short.toString(hitTotal);
         hitCountView.setText(hitCountText);
 
-        float a = (float)hitTotal;
+        float a = hitTotal;
         float b = (float)totalRolls;
         hitRate = 100.0f * ((a / b) * 100.0f) / 100.0f; //for some reason I can't use Math.round as I lose precision. will leave things like this for now.
         TextView hitRateView = findViewById(R.id.textView_hitRate);
@@ -453,7 +451,7 @@ public class DisplayMessageActivity extends AppCompatActivity
         if (hitRate <= 0)
             hitRateView.setTextColor(0xFFAA0000);   //red
 
-        if (hitRate >= dropRate)
+        if (hitRate >= (dropRate * 100.f))
             hitRateView.setTextColor(0xFF00AA00);   //green
 
         hitRateView.setText(hitRateText);
