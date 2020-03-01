@@ -451,7 +451,7 @@ public class DisplayMessageActivity extends AppCompatActivity
         if (hitRate <= 0)
             hitRateView.setTextColor(0xFFAA0000);   //red
 
-        if (hitRate >= (dropRate * 100.f))
+        else if (hitRate >= (dropRate * 100.f))
             hitRateView.setTextColor(0xFF00AA00);   //green
 
         hitRateView.setText(hitRateText);

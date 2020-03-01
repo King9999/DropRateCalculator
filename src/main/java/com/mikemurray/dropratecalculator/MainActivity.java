@@ -242,78 +242,106 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         EditText seedText = findViewById(R.id.seedText);
 
         //float dropRate;
-        int roll;
-        float weight;
-        long seed;
+        //int roll = 1;
+        //float weight = 1;
+        //long seed = seedValue;
+
+        boolean isDropRateValid; //used to check for any errors. If false, no calculations will occur.
+        boolean isRollCountValid;
+
+
+        //Collect all entered values
         try
         {
-            dropRate = Float.valueOf(dropRateText.getText().toString());
+             /* To make things simple, app must check what the user selected for the format and
+        convert the drop rate value to decimal.
+         */
+            //dropRate = Float.parseFloat(dropRateText.getText().toString());
+
+            if (selectedFormat.equals("[%] Percent"))
+            {
+                dropRate = Float.parseFloat(dropRateText.getText().toString()) / 100.0f;
+            }
+            else if (selectedFormat.equals("[/] Odds"))
+            {
+                dropRate = 1 / Float.parseFloat(dropRateText.getText().toString());
+            }
+            else
+            {
+                //it's already decimal
+                dropRate = Float.parseFloat(dropRateText.getText().toString());
+            }
+
+            isDropRateValid = true;
         }
         catch (NumberFormatException n)
         {
-            dropRate = 1;
-            System.out.println("Drop rate value not valid. Drop rate will be set to 1.");
+            Toast.makeText(this, "Invalid drop rate value.", Toast.LENGTH_SHORT).show();
+            isDropRateValid = false;
+            n.printStackTrace();
         }
 
         try
         {
-            roll = Integer.valueOf(rollText.getText().toString());
+            rollCount = Integer.parseInt(rollText.getText().toString());
+            isRollCountValid = true;
         }
         catch (NumberFormatException n)
         {
-            roll = 1;
-            System.out.println("Roll value not valid. Roll will be set to 1.");
+            Toast.makeText(this, "Invalid roll value.", Toast.LENGTH_SHORT).show();
+            isRollCountValid = false;
+            n.printStackTrace();
         }
 
         try
         {
-            weight = Float.valueOf(weightText.getText().toString());
+            weightValue = Float.parseFloat(weightText.getText().toString());
         }
         catch (NumberFormatException n)
         {
-            weight = 1;
-            System.out.println("Weight value not valid. Weight will be set to 1.");
+            weightValue = 1;
         }
 
         try
         {
-            seed = Long.valueOf(seedText.getText().toString());
+            seedValue = Long.parseLong(seedText.getText().toString());
         }
         catch (NumberFormatException n)
         {
-            //no value entered, so use System clock time.
-            seed = seedValue;
-
+            //do nothing, seed defaults to clock time that was saved when app started.
         }
-        //float dropRate = Float.valueOf(editText.getText().toString());
-        //int roll = Integer.valueOf(rollText.getText().toString());
 
         //Need to ensure the value is valid
-        if (dropRate < 0)
-            dropRate = 0;
+        if (dropRate < 0 || dropRate > 1)
+        {
+            Toast.makeText(this, "Please enter a drop rate value within range.", Toast.LENGTH_SHORT).show();
+            isDropRateValid = false;
+        }
 
-        if (dropRate > 1)
-            dropRate = 1;
 
-        if (roll < 1)
-            roll = 1;
+        if (rollCount < 1 || rollCount > MAX_ROLLS)
+        {
+            Toast.makeText(this, "Please enter a roll count within range.", Toast.LENGTH_SHORT).show();
+            isRollCountValid = false;
+        }
 
-        if (roll > MAX_ROLLS)
-            roll = MAX_ROLLS;
 
-        if (weight <= 0)
-            weight = 1;
+        if (weightValue <= 0)
+        {
+            Toast.makeText(this, "Weight cannot be zero or less.", Toast.LENGTH_SHORT).show();
+        }
 
-        //set up random.
-       // randNum.setSeed(seed);
 
         //Calculate the result and pass it to the next screen
         //dropRate = Math.round(dropRate * 1000.0f) / 1000.0f;  //round to 3 decimal places. Need the ".0f" for the rounding to work
-        intent.putExtra(DROP_RATE, dropRate);
-        intent.putExtra(ROLLS, roll);
-        intent.putExtra(WEIGHT, weight);
-        intent.putExtra(SEED, seed);
-        startActivity(intent);
+        if (isDropRateValid && isRollCountValid && weightValue > 0)
+        {
+            intent.putExtra(DROP_RATE, dropRate);
+            intent.putExtra(ROLLS, rollCount);
+            intent.putExtra(WEIGHT, weightValue);
+            intent.putExtra(SEED, seedValue);
+            startActivity(intent);
+        }
 
     }
 
